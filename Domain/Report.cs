@@ -10,9 +10,9 @@ namespace Domain
 		public int ReportId { get; set; }
 		public Worker Worker { get; set; } = null!;
 		public Experience Experience { get; set; } = null!;
-		public DateTime Date { get; set; }
-		public DateTime? StartTime { get; set; }
-		public DateTime? EndTime { get; set; }
+		public DateTimeOffset Date { get; set; }
+		public DateTimeOffset? StartTime { get; set; }
+		public DateTimeOffset? EndTime { get; set; }
 		public string UsedMaterials { get; set; } = string.Empty;
 		public string DoneWork { get; set; } = string.Empty;
 		public bool IsWorkDone { get; set; }
@@ -20,7 +20,7 @@ namespace Domain
 		public bool IsWorkplaceClean { get; set; }
 		public bool IsWorkAccept { get; set; }
 		public ReportStatus Status { get; set; } = ReportStatus.WaitingForAccept;
-		public DateTime UpdateOn { get; set; }
+		public DateTimeOffset UpdateOn { get; set; }
 		public string[] MediaIds { get; set; } 
 
 		[JsonIgnore]

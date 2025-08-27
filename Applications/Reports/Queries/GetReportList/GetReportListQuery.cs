@@ -10,5 +10,6 @@ namespace Application.Reports.Queries.GetReportList
 {
     public class GetReportListQuery : IRequest<List<Report>>
     {
+		public int WorkerId { get; set; } = 0;
     }
 }

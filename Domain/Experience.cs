@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.enums;
+using Domain.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -11,7 +12,7 @@ namespace Domain
 		public int? MainWorkerId { get; set; }
 		public Worker? MainWorker { get; set; }
 		public ICollection<Worker> Workers { get; set; } = null!;
-		public DateTime Date { get; set; }
+		public DateTimeOffset Date { get; set; }
 		public bool Garant { get; set; } = false;
 		public string WorkPlan { get; set; } = string.Empty;
 		public string DoneWork { get; set; } = string.Empty;
@@ -20,8 +21,10 @@ namespace Domain
 		public string RemainWork { get; set; } = string.Empty;
 		public bool IsWorkPlaceClean { get; set; }
 		public bool IsTaskAccepted { get; set; }
-		public DateTime? TimeStart { get; set; } = DateTime.MinValue;
-		public DateTime? TimeEnd { get; set; } = DateTime.MinValue;
+		public DateTimeOffset? TimeStart { get; set; } = DateTimeOffset.MinValue;
+		public DateTimeOffset? TimeEnd { get; set; } = DateTimeOffset.MinValue;
+		public ReportState ReportState { get; set; } = ReportState.None;
+
 		[JsonIgnore]
 		public ICollection<Report>? Reports { get; set; }
 

@@ -32,11 +32,14 @@ namespace WebApiV2.EndPoints
 
 		private static void GetReportList(this WebApplication app)
 		{
-			app.MapPost("/reports/GetList", static async (IMediator mediator, CancellationToken cancellationToken, ILogger<Program> logger) =>
+			app.MapPost("/reports/GetList", static async ([FromQuery] int? id, IMediator mediator, CancellationToken cancellationToken, ILogger<Program> logger) =>
 			{
 				try
 				{
-					var res = await mediator.Send(new GetReportListQuery(), cancellationToken);
+					var query = new GetReportListQuery();
+					if (id != null)
+						query.WorkerId = id.Value;
+					var res = await mediator.Send(query, cancellationToken);
 					return Results.Ok(res);
 				}
 				catch (Exception ex)

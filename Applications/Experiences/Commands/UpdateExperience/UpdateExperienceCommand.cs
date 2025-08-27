@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.enums;
 using MediatR;
 
 namespace Application.Experiences.Commands.UpdateExperience
@@ -19,6 +20,6 @@ namespace Application.Experiences.Commands.UpdateExperience
 		public bool? IsTaskAccepted { get; set; } = null;
 		public DateTime? TimeStart { get; set; } = null;
 		public DateTime? TimeEnd { get; set; } = null;
-
+		public ReportState? ReportState { get; set; } = null;
 	}
 }

@@ -13,13 +13,27 @@ namespace Application.Reports.Queries.GetReportList
 
         public async Task<List<Report>> Handle(GetReportListQuery query, CancellationToken cancellationToken)
         {
-            var res = await _dbContext.Reports
-                .AsNoTracking()
-                .Include(r => r.Worker)
-                .Include(r => r.Experience)
-                .ToListAsync(cancellationToken);
+			var result = new List<Report>();
 
-            return res;
+			if (query.WorkerId == 0)
+			{
+				result = await _dbContext.Reports
+					.AsNoTracking()
+					.Include(r => r.Worker)
+					.Include(r => r.Experience)
+					.ToListAsync();
+			}
+			else
+			{
+				result = await _dbContext.Reports
+					.AsNoTracking()
+					.Include(r => r.Worker)
+					.Include(r => r.Experience)
+					.Where(r => r.Worker.WorkerId == query.WorkerId)
+					.ToListAsync();
+			}
+
+				return result;
         }
     }
 }

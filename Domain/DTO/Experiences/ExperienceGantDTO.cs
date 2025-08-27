@@ -4,8 +4,8 @@
 	{
 		public int ExperienceId { get; set; }
 		public IEnumerable<int> WorkerIds { get; set; }
-		public DateTime? TimeStart { get; set; }
-		public DateTime? TimeEnd { get; set; }
+		public DateTimeOffset? TimeStart { get; set; }
+		public DateTimeOffset? TimeEnd { get; set; }
 
 		public override int GetHashCode()
 		{

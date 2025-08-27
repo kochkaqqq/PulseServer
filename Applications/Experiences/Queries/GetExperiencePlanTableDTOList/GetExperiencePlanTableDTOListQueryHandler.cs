@@ -24,6 +24,7 @@ namespace Application.Experiences.Queries.GetExperiencePlanTableDTOList
 				.Where(e => e.Date.Date == request.Date)
 				.Select(e => new ExperiencePlanTableDTO()
 				{
+					ExperienceId = e.ExperienceId,
 					Date = e.Date,
 					ClientName = e.Request.Client.Name,
 					StartTime = e.TimeStart,

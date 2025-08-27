@@ -23,9 +23,6 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 				.Include(e => e.Workers)
 				.Where(e => (request.ExperienceFilter.Client == null || e.Request.Client.ClientId == request.ExperienceFilter.Client.ClientId) &&
 					(request.ExperienceFilter.Request == null || request.ExperienceFilter.Request.RequestId == 0 || e.Request.RequestId == request.ExperienceFilter.Request.RequestId) &&
-					(request.ExperienceFilter.Request == null ||
-						string.IsNullOrEmpty(request.ExperienceFilter.Request.RequestTitle) ||
-						e.Request.ReasonRequest.ToLower().Contains(request.ExperienceFilter.Request.RequestTitle.ToLower())) &&
 					(request.ExperienceFilter.MainWorker == null || e.MainWorkerId == request.ExperienceFilter.MainWorker.Id) &&
 					(request.ExperienceFilter.FromDate == null || e.Date >= request.ExperienceFilter.FromDate) &&
 					(request.ExperienceFilter.ToDate == null || e.Date <= request.ExperienceFilter.ToDate) &&
@@ -38,6 +35,8 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 					(request.ExperienceFilter.IsWorkPlaceClean == null || e.IsWorkPlaceClean == request.ExperienceFilter.IsWorkPlaceClean) &&
 					(request.ExperienceFilter.IsTaskAccepted == null || e.IsTaskAccepted == request.ExperienceFilter.IsTaskAccepted));
 				
+			var tmp = await arr.ToArrayAsync();
+
 			if (request.ExperienceFilter != null && request.ExperienceFilter.Workers != null && request.ExperienceFilter.Workers.Count > 0)
 			{
 				foreach (var worker in request.ExperienceFilter.Workers)
@@ -57,7 +56,8 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 					ReasonRequest = x.Request.ReasonRequest,
 					StartTime = x.TimeStart,
 					WorkerList = string.Join(", ", x.Workers.Select(w => w.Name)),
-					WorkPlan = x.WorkPlan
+					WorkPlan = x.WorkPlan,
+					ReportState = x.ReportState,
 				}
 				).ToArrayAsync(cancellationToken);
 

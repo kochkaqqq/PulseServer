@@ -1,10 +1,12 @@
 using Application.Workers.Commands.DeleteWorker;
 using WebApi.DependencyInjections;
+using WebApi.Middlewares;
 using WebApiV2.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("conf.json");
+builder.Configuration.AddEnvironmentVariables("DATABASE_CONNECTION");
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DeleteWorkerCommand).Assembly));
 builder.Services.AddDataBase(builder.Configuration);
@@ -22,6 +24,8 @@ builder.Services.AddCors(options =>
 	});
 });
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -36,6 +40,8 @@ app.UseRouting();
 //}
 
 app.UseCors("AllowSpecificPolicy");
+
+app.UseMiddleware<Autorization>();
 
 app.UseClientEndPoints();
 app.UseRequestEndPoints();

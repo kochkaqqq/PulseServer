@@ -17,7 +17,7 @@ namespace Application.Requests.Commands.RemoveRequestFile
 
 		public async Task<Unit> Handle(RemoveRequestFileCommand request, CancellationToken cancellationToken)
 		{
-			var req = await _dbContext.Requests.FirstOrDefaultAsync(r => r.RequestId == request.RequestId) 
+			var req = await _dbContext.Requests.Include(r => r.Files).FirstOrDefaultAsync(r => r.RequestId == request.RequestId) 
 				?? throw new NotFoundException(nameof(Request), request.RequestId.ToString());
 
 			if (req.Files == null)

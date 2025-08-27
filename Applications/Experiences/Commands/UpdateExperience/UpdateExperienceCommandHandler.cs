@@ -94,6 +94,11 @@ namespace Application.Experiences.Commands.UpdateExperience
                 exp.TimeEnd = request.TimeEnd.Value;
             }
 
+			if (request.ReportState != null)
+			{
+				exp.ReportState = request.ReportState.Value;
+			}
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return exp;

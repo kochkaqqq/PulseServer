@@ -10,7 +10,8 @@ namespace Domain.DTO.Reports
 	{
 		public int ReportId { get; set; }
 		public Worker Worker { get; set; } = null!;
-		public DateTime Date { get; set; }
+		public string? ClientName { get; set; }
+		public DateTimeOffset Date { get; set; }
 		public int MediaCount { get; set; }
 		public bool IsWorkDone { get; set; }
 	}

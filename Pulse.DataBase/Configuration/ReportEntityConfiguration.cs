@@ -18,7 +18,7 @@ namespace Office.DataBase.Configuration
 				);
 
 			builder.Property(r => r.MediaIds)
-				.HasColumnType("nvarchar(max)");
+				.HasColumnType("text");
 		}
 	}
 }
