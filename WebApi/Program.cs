@@ -5,7 +5,7 @@ using WebApiV2.EndPoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("conf.json");
+//builder.Configuration.AddJsonFile("conf.json");
 builder.Configuration.AddEnvironmentVariables("DATABASE_CONNECTION");
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DeleteWorkerCommand).Assembly));
