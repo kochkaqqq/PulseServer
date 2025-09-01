@@ -22,7 +22,7 @@ namespace Application.Experiences.Queries.GetExperienceMobileList
 				.Include(e => e.Request.Client)
 				.Include(e => e.Workers)
 				.Where(e =>
-					(request.Date.Date == e.Date.Date) &&
+					(request.Date.UtcDateTime == e.Date.UtcDateTime) &&
 					(e.Workers.Select(w => w.WorkerId).Contains(request.WorkerId)))
 				.Select(e => new ExperienceListElementDTO()
 				{

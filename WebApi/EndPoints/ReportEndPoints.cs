@@ -22,6 +22,7 @@ namespace WebApiV2.EndPoints
 			app.GetReportListByExperience();
 			app.GetReportDTOList();
 			app.DownloadFile();
+			//app.GetStaticFile();
 
 			// Commands
 			app.AddReport();
@@ -220,6 +221,26 @@ namespace WebApiV2.EndPoints
 					contentType: mimeType,
 					fileDownloadName: fileName // Сохранит оригинальное имя с расширением
 				);
+			});
+		}
+
+		private static void GetStaticFile(this WebApplication app)
+		{
+			app.MapGet("/reports/media", static ([FromQuery] string fileId) =>
+			{
+				if (string.IsNullOrEmpty(fileId))
+					return Results.BadRequest("Invalid file name");
+
+				var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+				var imagePath = Path.Combine(uploadsPath, fileId);
+
+				if (!System.IO.File.Exists(imagePath))
+				{
+					return Results.NotFound();
+				}
+
+				var mimeType = GetMimeType(imagePath);
+				return Results.File(imagePath, contentType: mimeType);
 			});
 		}
 

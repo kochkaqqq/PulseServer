@@ -19,7 +19,7 @@ namespace Application.Experiences.Queries.GetExperienceGanttListByDate
 			var res = await _dbContext.Experiences
 				.AsNoTracking()
 				.Include(exp => exp.Workers)
-				.Where(exp => exp.Date.Date == request.Date.Date)
+				.Where(exp => exp.Date.UtcDateTime == request.Date.UtcDateTime)
 				.Select(exp => new ExperienceGantDTO() { ExperienceId = exp.ExperienceId, WorkerIds = exp.Workers.Select(w => w.WorkerId), TimeStart = exp.TimeStart, TimeEnd = exp.TimeEnd })
 				.ToListAsync(cancellationToken);
 

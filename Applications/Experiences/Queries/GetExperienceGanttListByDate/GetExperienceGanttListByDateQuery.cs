@@ -10,6 +10,6 @@ namespace Application.Experiences.Queries.GetExperienceGanttListByDate
 {
 	public class GetExperienceGanttListByDateQuery : IRequest<List<ExperienceGantDTO>>
 	{
-		public DateTime Date { get; set; }
+		public DateTimeOffset Date { get; set; }
 	}
 }

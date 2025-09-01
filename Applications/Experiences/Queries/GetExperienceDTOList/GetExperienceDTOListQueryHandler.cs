@@ -2,6 +2,7 @@
 using Domain.DTO;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace Application.Experiences.Queries.GetExperienceDTOList
 {
@@ -16,30 +17,32 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 
 		public async Task<Tuple<IEnumerable<ExperienceListElementDTO>, int>> Handle(GetExperinceDTOListQuery request, CancellationToken cancellationToken)
 		{
+			var filter = request.ExperienceFilter;
+
 			var arr = _dbContext.Experiences
 				.AsNoTracking()
 				.Include(e => e.Request)
 				.Include(e => e.Request.Client)
 				.Include(e => e.Workers)
-				.Where(e => (request.ExperienceFilter.Client == null || e.Request.Client.ClientId == request.ExperienceFilter.Client.ClientId) &&
-					(request.ExperienceFilter.Request == null || request.ExperienceFilter.Request.RequestId == 0 || e.Request.RequestId == request.ExperienceFilter.Request.RequestId) &&
-					(request.ExperienceFilter.MainWorker == null || e.MainWorkerId == request.ExperienceFilter.MainWorker.Id) &&
-					(request.ExperienceFilter.FromDate == null || e.Date >= request.ExperienceFilter.FromDate) &&
-					(request.ExperienceFilter.ToDate == null || e.Date <= request.ExperienceFilter.ToDate) &&
-					(request.ExperienceFilter.Garant == null || e.Garant == request.ExperienceFilter.Garant) &&
-					(request.ExperienceFilter.WorkPlan == string.Empty || e.WorkPlan.ToLower().Contains(request.ExperienceFilter.WorkPlan.ToLower())) &&
-					(request.ExperienceFilter.DoneWork == string.Empty || e.DoneWork.ToLower().Contains(request.ExperienceFilter.DoneWork.ToLower())) &&
-					(request.ExperienceFilter.UsedMaterials == string.Empty || e.UsedMaterials.ToLower().Contains(request.ExperienceFilter.UsedMaterials.ToLower())) &&
-					(request.ExperienceFilter.IsWorkDone == null || e.IsWorkDone == request.ExperienceFilter.IsWorkDone) &&
-					(request.ExperienceFilter.RemainWork == string.Empty || e.RemainWork.ToLower().Contains(request.ExperienceFilter.RemainWork.ToLower())) &&
-					(request.ExperienceFilter.IsWorkPlaceClean == null || e.IsWorkPlaceClean == request.ExperienceFilter.IsWorkPlaceClean) &&
-					(request.ExperienceFilter.IsTaskAccepted == null || e.IsTaskAccepted == request.ExperienceFilter.IsTaskAccepted));
-				
-			var tmp = await arr.ToArrayAsync();
+				.Where(e => (filter.Client == null || e.Request.Client.ClientId == filter.Client.ClientId) &&
+					(filter.Request == null || filter.Request.RequestId == 0 || e.Request.RequestId == filter.Request.RequestId) &&
+					(filter.MainWorker == null || e.MainWorkerId == filter.MainWorker.Id) &&
+					(filter.FromDate == null || e.Date >= filter.FromDate.Value) &&
+					(filter.ToDate == null || e.Date <= filter.ToDate.Value) &&
+					(filter.Garant == null || e.Garant == filter.Garant) &&
+					(filter.WorkPlan == string.Empty || e.WorkPlan.ToLower().Contains(filter.WorkPlan.ToLower())) &&
+					(filter.DoneWork == string.Empty || e.DoneWork.ToLower().Contains(filter.DoneWork.ToLower())) &&
+					(filter.UsedMaterials == string.Empty || e.UsedMaterials.ToLower().Contains(filter.UsedMaterials.ToLower())) &&
+					(filter.IsWorkDone == null || e.IsWorkDone == filter.IsWorkDone) &&
+					(filter.RemainWork == string.Empty || e.RemainWork.ToLower().Contains(filter.RemainWork.ToLower())) &&
+					(filter.IsWorkPlaceClean == null || e.IsWorkPlaceClean == filter.IsWorkPlaceClean) &&
+					(filter.IsTaskAccepted == null || e.IsTaskAccepted == filter.IsTaskAccepted) &&
+					(filter.ReportState == null || e.ReportState == filter.ReportState)
+					);
 
-			if (request.ExperienceFilter != null && request.ExperienceFilter.Workers != null && request.ExperienceFilter.Workers.Count > 0)
+			if (filter != null && filter.Workers != null && filter.Workers.Count > 0)
 			{
-				foreach (var worker in request.ExperienceFilter.Workers)
+				foreach (var worker in filter.Workers)
 				{
 					arr = arr.Where(e => e.Workers.FirstOrDefault(w => w.WorkerId == worker.Id) != null);
 				}
@@ -61,7 +64,7 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 				}
 				).ToArrayAsync(cancellationToken);
 
-			return new Tuple<IEnumerable<ExperienceListElementDTO>, int>(res, count);
+			return new Tuple<IEnumerable<ExperienceListElementDTO>, int>(res, 0);
 		}
 	}
 }

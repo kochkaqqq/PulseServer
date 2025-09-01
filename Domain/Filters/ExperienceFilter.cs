@@ -1,6 +1,7 @@
 ﻿using Domain.DTO;
 using Domain.DTO.Clients;
 using Domain.DTO.Requests;
+using Domain.enums;
 
 namespace Domain.Filters
 {
@@ -20,5 +21,6 @@ namespace Domain.Filters
 		public string RemainWork { get; set; } = string.Empty;
 		public bool? IsWorkPlaceClean { get; set; } = null;
 		public bool? IsTaskAccepted { get; set; } = null;
+		public ReportState? ReportState { get; set; } = null;
 	}
 }
