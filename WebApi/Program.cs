@@ -43,6 +43,8 @@ app.UseCors("AllowSpecificPolicy");
 
 app.UseMiddleware<Autorization>();
 
+app.MapGet("/", () => "home page, all works");
+
 app.UseClientEndPoints();
 app.UseRequestEndPoints();
 app.UseExperienceEndPoints();

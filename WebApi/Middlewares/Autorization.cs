@@ -15,7 +15,12 @@ namespace WebApi.Middlewares
 
 		public async Task InvokeAsync(HttpContext context, IMediator _mediator)
 		{
-			if (context.Request.Path.Value.Contains("/workers/GetWorkerByApiKey"))
+			if (!context.Request.Path.HasValue || context.Request.Path.Value == "/")
+			{
+				await _next(context);
+				return;
+			}
+			if (context.Request.Path.HasValue && context.Request.Path.Value.Contains("/workers/GetWorkerByApiKey"))
 			{
 				await _next(context);
 				return;
