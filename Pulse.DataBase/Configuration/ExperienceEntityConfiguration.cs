@@ -10,6 +10,16 @@ namespace Office.DataBase.Configuration
 		{
 			builder.HasQueryFilter(e => !e.IsArchive);
 
+			builder.Property(e => e.Date)
+				.HasColumnType("date")
+				.IsRequired();
+
+			//builder.Property(e => e.TimeStart)
+			//	.HasColumnType("time");
+
+			//builder.Property(e => e.TimeEnd)
+			//	.HasColumnType("time");
+
 			builder
 				.HasOne(e => e.MainWorker)
 				.WithMany()

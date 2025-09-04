@@ -21,7 +21,7 @@ namespace Application.CommonQueries.GetHomePageStats
 			var reqWithoutDocCount = await _dbContext.Requests.AsNoTracking().Include(r => r.Document).Where(r => r.Document == null).CountAsync(cancellationToken);
 			res.Add(StatType.RequestWithoutDocument, reqWithoutDocCount);
 
-			var tomorrowExps = await _dbContext.Experiences.AsNoTracking().Include(e => e.Workers).Where(e => e.Date.Date == DateTime.Now.Date).ToListAsync(cancellationToken);
+			var tomorrowExps = await _dbContext.Experiences.AsNoTracking().Include(e => e.Workers).Where(e => e.Date == DateTime.Now.Date).ToListAsync(cancellationToken);
 			var tomorrowExpWithoutWorkersCount = tomorrowExps.Where(r => r.Workers == null || r.Workers.Count == 0).Count();
 			res.Add(StatType.TomorrowExpWithoutWorkers, tomorrowExpWithoutWorkersCount);
 

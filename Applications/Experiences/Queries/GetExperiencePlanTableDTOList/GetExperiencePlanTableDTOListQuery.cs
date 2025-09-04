@@ -5,6 +5,6 @@ namespace Application.Experiences.Queries.GetExperiencePlanTableDTOList
 {
 	public class GetExperiencePlanTableDTOListQuery : IRequest<List<ExperiencePlanTableDTO>>
 	{
-		public DateTimeOffset Date { get; set; }
+		public DateTime Date { get; set; }
 	}
 }

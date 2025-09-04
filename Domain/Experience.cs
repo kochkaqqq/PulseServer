@@ -12,7 +12,7 @@ namespace Domain
 		public int? MainWorkerId { get; set; }
 		public Worker? MainWorker { get; set; }
 		public ICollection<Worker> Workers { get; set; } = null!;
-		public DateTimeOffset Date { get; set; }
+		public DateTime Date { get; set; }
 		public bool Garant { get; set; } = false;
 		public string WorkPlan { get; set; } = string.Empty;
 		public string DoneWork { get; set; } = string.Empty;
@@ -21,8 +21,8 @@ namespace Domain
 		public string RemainWork { get; set; } = string.Empty;
 		public bool IsWorkPlaceClean { get; set; }
 		public bool IsTaskAccepted { get; set; }
-		public DateTimeOffset? TimeStart { get; set; } = DateTimeOffset.MinValue;
-		public DateTimeOffset? TimeEnd { get; set; } = DateTimeOffset.MinValue;
+		public DateTime? TimeStart { get; set; } = null;
+		public DateTime? TimeEnd { get; set; } = null;
 		public ReportState ReportState { get; set; } = ReportState.None;
 
 		[JsonIgnore]

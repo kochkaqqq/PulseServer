@@ -9,6 +9,8 @@ using Application.Reports.Commands.DeleteReport;
 using Application.Reports.Queries.GeteportListByExperience;
 using Application.Reports.Queries.GetReportListByClientFilter;
 using Microsoft.AspNetCore.StaticFiles;
+using Azure;
+using System.Net;
 
 namespace WebApiV2.EndPoints
 {
@@ -199,11 +201,9 @@ namespace WebApiV2.EndPoints
 
 		private static void DownloadFile(this WebApplication app)
 		{
-			app.MapGet("/reports/GetMedia", ([FromQuery] string fileId) =>
+			app.MapGet("/reports/GetMedia", async ([FromQuery] string fileId, HttpContext context) =>
 			{
 				var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
-
-				// Находим первый файл, который начинается с fileId
 				var files = Directory.GetFiles(uploadsFolder, $"{fileId}.*");
 
 				if (files.Length == 0)
@@ -211,15 +211,21 @@ namespace WebApiV2.EndPoints
 					return Results.NotFound(new { Error = "File not found" });
 				}
 
-				// Берем первый найденный файл
 				var filePath = files[0];
 				var fileName = Path.GetFileName(filePath);
 				var mimeType = GetMimeType(filePath);
+				var fileExtension = Path.GetExtension(filePath).TrimStart('.');
+
+				// Добавляем заголовки
+				context.Response.Headers.Append("X-File-Type", fileExtension);
+				context.Response.Headers.Append("X-Content-Type", mimeType);
+				context.Response.Headers.Append("X-File-Name", fileName);
+				context.Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
 
 				return Results.File(
-					fileStream: File.OpenRead(filePath),
-					contentType: mimeType,
-					fileDownloadName: fileName // Сохранит оригинальное имя с расширением
+					File.OpenRead(filePath),
+					mimeType,
+					fileName
 				);
 			});
 		}

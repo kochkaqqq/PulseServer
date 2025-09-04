@@ -19,6 +19,21 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 		{
 			var filter = request.ExperienceFilter;
 
+			var exps = await _dbContext.Experiences.AsNoTracking().Where(e => e.ExperienceId <= 1826 && e.ExperienceId >= 1814).ToListAsync();
+
+			foreach (var experience in exps)
+			{
+				var expDate = experience.Date;
+				if (filter.FromDate.HasValue)
+				{
+					var filterFrom = filter.FromDate.Value.Date;
+				}
+				if (filter.ToDate.HasValue)
+				{
+					var filterTo = filter.ToDate.Value.Date;
+				}
+			}
+
 			var arr = _dbContext.Experiences
 				.AsNoTracking()
 				.Include(e => e.Request)
@@ -27,8 +42,8 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 				.Where(e => (filter.Client == null || e.Request.Client.ClientId == filter.Client.ClientId) &&
 					(filter.Request == null || filter.Request.RequestId == 0 || e.Request.RequestId == filter.Request.RequestId) &&
 					(filter.MainWorker == null || e.MainWorkerId == filter.MainWorker.Id) &&
-					(filter.FromDate == null || e.Date >= filter.FromDate.Value) &&
-					(filter.ToDate == null || e.Date <= filter.ToDate.Value) &&
+					(filter.FromDate == null || e.Date >= filter.FromDate.Value.Date) &&
+					(filter.ToDate == null || e.Date <= filter.ToDate.Value.Date) &&
 					(filter.Garant == null || e.Garant == filter.Garant) &&
 					(filter.WorkPlan == string.Empty || e.WorkPlan.ToLower().Contains(filter.WorkPlan.ToLower())) &&
 					(filter.DoneWork == string.Empty || e.DoneWork.ToLower().Contains(filter.DoneWork.ToLower())) &&

@@ -39,7 +39,9 @@ namespace Office.DataBase.Configuration
 				.Property(c => c.Phone)
 				.HasMaxLength(64);
 
-			
+			builder.Property(c => c.CreatedDate)
+				.HasColumnType("date")
+				.IsRequired();
 		}
 	}
 }

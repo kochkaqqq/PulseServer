@@ -9,7 +9,7 @@ namespace Domain
 	{
 		public int RequestId { get; set; }
 		public Client Client { get; set; } = null!;
-		public DateTimeOffset Date { get; set; }
+		public DateTime Date { get; set; }
 		public string ReasonRequest { get; set; } = string.Empty;
 		public string NecessaryFunds { get; set; } = string.Empty;
 		public Manager Manager { get; set; } = null!;

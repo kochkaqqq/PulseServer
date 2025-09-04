@@ -13,6 +13,10 @@ namespace Office.DataBase.Configuration
 			builder.HasOne(r => r.Document).WithMany().HasForeignKey(r => r.DocumentId).OnDelete(DeleteBehavior.SetNull);
 
 			builder.HasMany(r => r.Files).WithMany(d => d.Requests);
+
+			builder.Property(r => r.Date)
+				.HasColumnType("date")
+				.IsRequired();
 		}
 	}
 }

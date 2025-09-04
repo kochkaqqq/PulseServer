@@ -9,7 +9,7 @@ namespace Application.Experiences.Commands.CreateExperience
         public int? RequestId { get; set; } = null!;
         public int? MainWorkerId { get; set; }
         public IEnumerable<int> WorkersId { get; set; } = null!;
-        public DateTimeOffset Date { get; set; }
+        public DateTime Date { get; set; }
         public bool Garant { get; set; }
         public string? WorkPlan { get; set; } = string.Empty;
         public string? DoneWork { get; set; } = string.Empty;
@@ -18,8 +18,8 @@ namespace Application.Experiences.Commands.CreateExperience
 		public string? RemainWork { get; set; } = string.Empty;
 		public bool IsWorkPlaceClean { get; set; }
 		public bool IsTaskAccepted { get; set; }
-		public DateTimeOffset? TimeStart { get; set; }
-        public DateTimeOffset? TimeEnd { get; set; }
+		public DateTime? TimeStart { get; set; }
+        public DateTime? TimeEnd { get; set; }
         
     }
 }

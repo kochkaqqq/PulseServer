@@ -19,6 +19,19 @@ namespace Office.DataBase.Configuration
 
 			builder.Property(r => r.MediaIds)
 				.HasColumnType("text");
+
+			builder.Property(r => r.Date)
+				.HasColumnType("date")
+				.IsRequired();
+
+			builder.Property(r => r.UpdateOn)
+				.HasColumnType("date");
+
+			//builder.Property(r => r.StartTime)
+			//	.HasColumnType("time");
+
+			//builder.Property(r => r.EndTime)
+			//	.HasColumnType("time");
 		}
 	}
 }

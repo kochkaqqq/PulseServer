@@ -21,7 +21,7 @@ namespace Application.Experiences.Queries.GetExperiencePlanTableDTOList
 				.Include(e => e.Request)
 				.Include(e => e.Request.Client)
 				.Include(e => e.Workers)
-				.Where(e => e.Date.UtcDateTime == request.Date.UtcDateTime)
+				.Where(e => e.Date == request.Date)
 				.Select(e => new ExperiencePlanTableDTO()
 				{
 					ExperienceId = e.ExperienceId,
