@@ -25,11 +25,10 @@ namespace Application.CommonQueries.GetHomePageStats
 			var tomorrowExpWithoutWorkersCount = tomorrowExps.Where(r => r.Workers == null || r.Workers.Count == 0).Count();
 			res.Add(StatType.TomorrowExpWithoutWorkers, tomorrowExpWithoutWorkersCount);
 
-			var uncheckedReportsCount = await _dbContext.Reports.AsNoTracking().Where(r => r.Status == ReportStatus.WaitingForAccept).CountAsync(cancellationToken);
+			var uncheckedReportsCount = await _dbContext.Experiences.AsNoTracking().Where(e => e.ReportState == ReportState.NotChecked).CountAsync(cancellationToken);
 			res.Add(StatType.UncheckedReports, uncheckedReportsCount);
 
-			var expsWithoutReport = await _dbContext.Experiences.AsNoTracking().Include(e => e.Reports).ToListAsync(cancellationToken);
-			var expsWithoutReportCount = expsWithoutReport.Where(r => r.Reports == null || r.Reports.Count == 0).Count();
+			var expsWithoutReportCount = await _dbContext.Experiences.AsNoTracking().Where(e => e.ReportState == ReportState.None).CountAsync(cancellationToken);
 			res.Add(StatType.ExperienceWithoutReport, expsWithoutReportCount);
 
 			return res;

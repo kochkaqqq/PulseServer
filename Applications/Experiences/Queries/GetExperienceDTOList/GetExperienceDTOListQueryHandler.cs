@@ -19,21 +19,6 @@ namespace Application.Experiences.Queries.GetExperienceDTOList
 		{
 			var filter = request.ExperienceFilter;
 
-			var exps = await _dbContext.Experiences.AsNoTracking().Where(e => e.ExperienceId <= 1826 && e.ExperienceId >= 1814).ToListAsync();
-
-			foreach (var experience in exps)
-			{
-				var expDate = experience.Date;
-				if (filter.FromDate.HasValue)
-				{
-					var filterFrom = filter.FromDate.Value.Date;
-				}
-				if (filter.ToDate.HasValue)
-				{
-					var filterTo = filter.ToDate.Value.Date;
-				}
-			}
-
 			var arr = _dbContext.Experiences
 				.AsNoTracking()
 				.Include(e => e.Request)
