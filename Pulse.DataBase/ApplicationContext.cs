@@ -16,6 +16,7 @@ namespace Office.DataBase
         public DbSet<Report> Reports { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<MediaFile> MediaFiles { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

@@ -16,6 +16,5 @@ namespace Application.Reports.Commands.CreateReport
         public string RemainWork { get; set; } = string.Empty;
         public bool IsWorkplaceClean { get; set; }
         public bool IsWorkAccept { get; set; }
-		public string[] MediaIds { get; set; }
     }
 }

@@ -10,6 +10,12 @@ namespace Office.DataBase.Configuration
 		{
 			builder.HasQueryFilter(c => !c.IsArchive);
 
+			builder.HasKey(c => c.ClientId);
+
+			builder.Property(c => c.ClientId)
+				.UseIdentityColumn()
+				.HasIdentityOptions(startValue: 165);
+
 			builder
 				.HasMany(c => c.Requests)
 				.WithOne(r => r.Client);

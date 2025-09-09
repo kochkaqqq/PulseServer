@@ -21,7 +21,8 @@ namespace Domain
 		public bool IsWorkAccept { get; set; }
 		public ReportStatus Status { get; set; } = ReportStatus.WaitingForAccept;
 		public DateTime UpdateOn { get; set; }
-		public string[] MediaIds { get; set; } 
+		public string[] MediaIds { get; set; }
+		public List<MediaFile> MediaFiles { get; set; } = new();
 
 		[JsonIgnore]
 		public bool IsArchive { get; set; } = false;

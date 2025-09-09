@@ -23,16 +23,16 @@ namespace Application.Reports.Commands.UpdateReport
             if (command.EndTime != null)
 				entity.EndTime = command.EndTime.Value;
 
-            if (command.UsedMaterials != null)
+            if (!string.IsNullOrEmpty(command.UsedMaterials))
 				entity.UsedMaterials = command.UsedMaterials;
 
-            if (command.DoneWork != null)
+            if (!string.IsNullOrEmpty(command.DoneWork))
                 entity.DoneWork = command.DoneWork;
 
             if (command.IsWorkDone != null)
 				entity.IsWorkDone = command.IsWorkDone.Value;
 
-            if (command.RemainWork != null)
+            if (!string.IsNullOrEmpty(command.RemainWork))
                 entity.RemainWork = command.RemainWork;
 
 			if (command.IsWorkplaceClean != null)

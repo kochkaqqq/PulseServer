@@ -10,6 +10,12 @@ namespace Office.DataBase.Configuration
 		{
 			builder.HasQueryFilter(e => !e.IsArchive);
 
+			builder.HasKey(e => e.ExperienceId);
+
+			builder.Property(e => e.ExperienceId)
+				.UseIdentityColumn()
+				.HasIdentityOptions(startValue: 1876);
+
 			builder.Property(e => e.Date)
 				.HasColumnType("date")
 				.IsRequired();

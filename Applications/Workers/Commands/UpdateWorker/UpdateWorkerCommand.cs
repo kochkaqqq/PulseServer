@@ -8,7 +8,7 @@ namespace Application.Workers.Commands.UpdateWorker
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public int ShiftSalary { get; set; }
-        public int HourSalary { get; set; }
+        public int? ShiftSalary { get; set; }
+        public int? HourSalary { get; set; }
     }
 }

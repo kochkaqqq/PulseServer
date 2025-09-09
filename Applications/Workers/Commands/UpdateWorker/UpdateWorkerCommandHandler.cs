@@ -17,10 +17,17 @@ namespace Application.Workers.Commands.UpdateWorker
             var entity = await _dbContext.Workers.FirstOrDefaultAsync(w => w.WorkerId == request.Id, cancellationToken) ?? 
                 throw new NotFoundException(nameof(Worker), request.Id.ToString());
 
-			entity.Name = request.Name ?? string.Empty;
-            entity.Description = request.Description ?? string.Empty;
-            entity.ShiftSalary = request.ShiftSalary;
-            entity.HourSalary = request.HourSalary;
+			if (!string.IsNullOrEmpty(request.Name))
+				entity.Name = request.Name;
+
+			if (!string.IsNullOrEmpty(request.Description))
+				entity.Description = request.Description;
+
+			if (request.ShiftSalary != null)
+				entity.ShiftSalary = request.ShiftSalary.Value;
+
+			if (request.HourSalary != null)
+				entity.HourSalary = request.HourSalary.Value;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

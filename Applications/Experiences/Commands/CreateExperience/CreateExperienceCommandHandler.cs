@@ -46,6 +46,9 @@ namespace Application.Experiences.Commands.CreateExperience
                 IsTaskAccepted = request.IsTaskAccepted,
 				TimeStart = request.TimeStart,
                 TimeEnd = request.TimeEnd,
+				WorkPlan = request.WorkPlan ?? string.Empty,
+				Reports = new List<Report>(),
+				ReportState = Domain.enums.ReportState.None,
             };
 
             await _dbContext.Experiences.AddAsync(entity, cancellationToken);

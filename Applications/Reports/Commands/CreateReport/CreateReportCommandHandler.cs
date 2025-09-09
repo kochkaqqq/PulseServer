@@ -34,8 +34,9 @@ namespace Application.Reports.Commands.CreateReport
                 IsWorkplaceClean = command.IsWorkplaceClean,
                 IsWorkAccept = command.IsWorkAccept,
                 UpdateOn = command.Date,
-				MediaIds = command.MediaIds,
-            };
+				MediaIds = Array.Empty<string>(),
+				MediaFiles = new()
+			};
 
             await _dbContext.Reports.AddAsync(entity, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

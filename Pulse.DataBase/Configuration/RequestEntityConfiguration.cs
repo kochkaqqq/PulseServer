@@ -10,6 +10,12 @@ namespace Office.DataBase.Configuration
 		{
 			builder.HasQueryFilter(r => !r.IsArchive);
 
+			builder.HasKey(r => r.RequestId);
+
+			builder.Property(r => r.RequestId)
+				.UseIdentityColumn()
+				.HasIdentityOptions(startValue: 795);
+
 			builder.HasOne(r => r.Document).WithMany().HasForeignKey(r => r.DocumentId).OnDelete(DeleteBehavior.SetNull);
 
 			builder.HasMany(r => r.Files).WithMany(d => d.Requests);

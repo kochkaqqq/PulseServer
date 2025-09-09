@@ -10,6 +10,12 @@ namespace Office.DataBase.Configuration
 		{
 			builder.HasQueryFilter(w => !w.IsArchive);
 
+			builder.HasKey(w => w.WorkerId);
+
+			builder.Property(w => w.WorkerId)
+				.UseIdentityColumn()
+				.HasIdentityOptions(startValue: 37);
+
 			builder
 				.HasIndex(e => e.Name)
 				.IsUnique();

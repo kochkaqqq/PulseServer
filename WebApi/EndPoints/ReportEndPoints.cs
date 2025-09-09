@@ -11,6 +11,7 @@ using Application.Reports.Queries.GetReportListByClientFilter;
 using Microsoft.AspNetCore.StaticFiles;
 using Azure;
 using System.Net;
+using Application.MediaFiles.Commands.AddMediaFile;
 
 namespace WebApiV2.EndPoints
 {
@@ -159,9 +160,9 @@ namespace WebApiV2.EndPoints
 
 		private static void SaveFile(this WebApplication app)
 		{
-			app.MapPost("/reports/saveFile", async (HttpRequest request) =>
+			app.MapPost("/reports/saveFile", async (HttpRequest request, IWebHostEnvironment _enviroment) =>
 			{
-				const int maxFileSize = 5 * 1024 * 1024; 
+				const long maxFileSize = 40 * 1024 * 1024; 
 
 				var file = request.Form.Files[0];
 
@@ -176,11 +177,12 @@ namespace WebApiV2.EndPoints
 					});
 				}
 
-				var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+				var uploadsFolder = Path.Combine(_enviroment.ContentRootPath, "Uploads");
 				Directory.CreateDirectory(uploadsFolder);
 
 				var newName = Guid.NewGuid().ToString();
 				var originalFileName = file.FileName;
+				//var desc = file.Headers.;
 				var fileExtension = Path.GetExtension(originalFileName);
 				var newFileName = $"{newName}{fileExtension}";
 				var filePath = Path.Combine(uploadsFolder, newFileName);

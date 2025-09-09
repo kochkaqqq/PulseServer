@@ -14,6 +14,7 @@ namespace Application.Interfaces
         DbSet<Report> Reports { get; set; }
         DbSet<Log> Logs { get; set; }
         DbSet<Document> Documents { get; set; }
+		DbSet<MediaFile> MediaFiles { get; set; }
 
         ChangeTracker ChangeTracker { get; }
 

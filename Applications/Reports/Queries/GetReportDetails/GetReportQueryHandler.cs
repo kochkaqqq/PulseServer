@@ -23,6 +23,7 @@ namespace Application.Reports.Queries.GetReportDetails
                 .AsNoTrackingWithIdentityResolution()
                 .Include(r => r.Worker)
                 .Include(r => r.Experience)
+				.Include(r => r.MediaFiles)
                 .FirstOrDefaultAsync(r => r.ReportId == query.Id, cancellationToken) ?? 
                     throw new NotFoundException(nameof(Request), query.Id.ToString());
 			return entity;

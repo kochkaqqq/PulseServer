@@ -1,5 +1,6 @@
 using Application.Workers.Commands.DeleteWorker;
 using WebApi.DependencyInjections;
+using WebApi.EndPoints;
 using WebApi.Middlewares;
 using WebApiV2.EndPoints;
 
@@ -52,5 +53,6 @@ app.UseReportEndPoints();
 app.UseWorkerEndPoints();
 app.UseManagerEndPoints();
 app.AddStatsEndPoints();
+app.UseMediaFilesEndPoints();
 
 app.Run();

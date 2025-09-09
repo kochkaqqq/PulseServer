@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Office.DataBase;
@@ -11,9 +12,11 @@ using Office.DataBase;
 namespace Pulse.DataBase.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250906205348_AddMediaFileTable")]
+    partial class AddMediaFileTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,6 @@ namespace Pulse.DataBase.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientId"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("ClientId"), 165L, null, null, null, null, null);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -121,7 +123,6 @@ namespace Pulse.DataBase.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ExperienceId"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("ExperienceId"), 1876L, null, null, null, null, null);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("date");
@@ -343,7 +344,6 @@ namespace Pulse.DataBase.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RequestId"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("RequestId"), 795L, null, null, null, null, null);
 
                     b.Property<string>("ActFilePath")
                         .IsRequired()
@@ -400,7 +400,6 @@ namespace Pulse.DataBase.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WorkerId"));
-                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("WorkerId"), 37L, null, null, null, null, null);
 
                     b.Property<string>("ApiKey")
                         .IsRequired()

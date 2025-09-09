@@ -49,17 +49,17 @@ namespace Application.Experiences.Commands.UpdateExperience
                 exp.Garant = request.Garant.Value;
             }
 
-            if (request.WorkPlan != null)
+            if (!string.IsNullOrEmpty(request.WorkPlan))
             {
                 exp.WorkPlan = request.WorkPlan;
             }
 
-            if (request.DoneWork != null)
+            if (!string.IsNullOrEmpty(request.DoneWork))
             {
                 exp.DoneWork = request.DoneWork;
             }
 
-            if (request.UsedMaterials != null)
+            if (!string.IsNullOrEmpty(request.UsedMaterials))
             {
                 exp.UsedMaterials = request.UsedMaterials;
             }
@@ -69,7 +69,7 @@ namespace Application.Experiences.Commands.UpdateExperience
                 exp.IsWorkDone = request.IsWorkDone.Value;
             }
 
-            if (request.RemainWork != null)
+            if (!string.IsNullOrEmpty(request.RemainWork))
             {
                 exp.RemainWork = request.RemainWork;
             }

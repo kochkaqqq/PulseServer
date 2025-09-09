@@ -26,10 +26,10 @@ namespace Application.Requests.Commands.UpdateRequest
             if (request.Date != null)
                 entity.Date = request.Date.Value;
 
-            if (request.ReasonRequest != null)
+            if (!string.IsNullOrEmpty(request.ReasonRequest))
                 entity.ReasonRequest = request.ReasonRequest;
 
-            if (request.NecessaryFunds != null)
+            if (!string.IsNullOrEmpty(request.NecessaryFunds))
                 entity.NecessaryFunds = request.NecessaryFunds;
 
             if (request.ManagerId != null)
@@ -40,7 +40,7 @@ namespace Application.Requests.Commands.UpdateRequest
                 entity.Manager = manager;
             }
 
-            if (request.InternalInfo != null)
+            if (!string.IsNullOrEmpty(request.InternalInfo))
                 entity.InternalInfo = request.InternalInfo;
 
             if (request.Status != null)
@@ -49,7 +49,7 @@ namespace Application.Requests.Commands.UpdateRequest
             if (request.WorkResultType != null)
                 entity.WorkResultType = request.WorkResultType.Value;
 
-            if (request.ActFilePath != null)
+            if (!string.IsNullOrEmpty(request.ActFilePath))
                 entity.ActFilePath = request.ActFilePath;
 
             if (request.Document != null)
