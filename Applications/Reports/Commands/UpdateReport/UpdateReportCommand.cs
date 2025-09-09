@@ -15,6 +15,5 @@ namespace Application.Reports.Commands.UpdateReport
         public bool? IsWorkplaceClean { get; set; }
         public bool? IsWorkAccept { get; set; }
         public DateTime UpdateOn { get; set; }
-		public string[] MediaIds { get; set; }
     }
 }

@@ -41,9 +41,6 @@ namespace Application.Reports.Commands.UpdateReport
             if (command.IsWorkAccept != null)
 				entity.IsWorkAccept = command.IsWorkAccept.Value;
 
-			if (command.MediaIds != null)
-				entity.MediaIds = command.MediaIds;
-
             entity.UpdateOn = command.UpdateOn;
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
